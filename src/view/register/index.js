@@ -12,7 +12,6 @@ export default function Register() {
     const navigate = useNavigate(); 
   
     const { user, success, error } = useSelector(state => state.registerReducer)
-    console.log(error);
    
   return (
     

@@ -5,7 +5,7 @@ const initialState = {
       email: '',
       password: ''
     },
-    seccess: false
+    success: false
 }
 
 export default (state = initialState, { type, payload }) => {
@@ -20,7 +20,9 @@ export default (state = initialState, { type, payload }) => {
          }
 
          case actionTypes.SUCCESS:
-            return { ...state, success: payload
+            return { ...state, 
+              success: payload,
+              user: payload.user
                  }
 
   default:

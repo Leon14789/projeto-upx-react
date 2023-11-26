@@ -5,13 +5,21 @@ import { useDispatch, useSelector  } from 'react-redux'
 import { change, question } from '../../store/actions/question.action';
 import {  useNavigate } from 'react-router-dom';
 import Header from '../header/'
+import thunk from 'redux-thunk';
+
 
 export default function Question() {
+
+ 
 
     const dispatch = useDispatch();
     const navigate = useNavigate(); 
   
     const { userQuestion, success, error } = useSelector(state => state.questionReducer)
+
+
+
+    
   return (
     
     <div className=' min-vh-100'>

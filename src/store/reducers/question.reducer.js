@@ -4,6 +4,7 @@ const initialState = {
     userQuestion: {
         'title': '',
         'description': '',
+        user_id: parseInt(localStorage.getItem('user_id'), 10) || 0,
     },
     success: false,
     error: {}
@@ -18,8 +19,10 @@ export default (state = initialState, { type, payload }) => {
     return { ...state,
         
         userQuestion: {
+            user_id: parseInt(localStorage.getItem('user_id'), 10) || 0,
             ...state.userQuestion,
-            ...payload 
+            ...payload,
+            
         }
         
         }

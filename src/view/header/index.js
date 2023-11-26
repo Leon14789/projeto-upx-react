@@ -10,7 +10,8 @@ export default function Header(props) {
   })
 
 
-  
+  const userNome = localStorage.getItem('user_name');
+
     return (
     
     <>
@@ -33,9 +34,9 @@ export default function Header(props) {
             <div className='container'>
                     <Link
                         className='navbar-brand'
-                        to="/"
+                        to="/question"
                     >
-                        <img src="/logo.png" alt='Logo' height="50"/>
+                        {(userNome) ? userNome : "Nome do usuario nao Definido" }
                     </Link>
             
 
@@ -51,7 +52,7 @@ export default function Header(props) {
                         </Link>
                     </li>
                     <li className='nav-item'>
-                        <Link className='nav-link' to="/question">
+                        <Link className='nav-link' to="/myQuestion">
                         <FaUsers className='icon-lg mr-2' /> Minhas Perguntas
                         </Link>
                     </li>

@@ -13,15 +13,15 @@ export default function Auth() {
   const navigate = useNavigate(); 
   const { credentials, success } = useSelector(state => state.authReducer)
 
+
   return (
     <div className='d-flex bg-white min-vh-100'>
       <div className='container mt-5'>
         <div className='row justify-content-center'>
           <div className='col-md-3'>
              <div className='form-group text-center'>
-                <img src="/logo.png" alt='Lucas Colocar uma Logo' height="100"/>
                 <Typography  className='mt-3' variant='h6' component="h1">
-                   Nome do Projeto
+                   Projeto de UPX 2
                 </Typography>
              </div>
              <TextField 
@@ -61,7 +61,6 @@ export default function Auth() {
                
              >Cadastrar</Button>
              
-
            
           {(success) &&
           navigate('/main')

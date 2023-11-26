@@ -18,14 +18,19 @@ export const success = (payload) => ({
 })
 
 
-export const setUserToken = token => dispatch => {
-    localStorage.setItem('access_token', token);
+export const setUserToken = user => dispatch => {
+    localStorage.setItem('user_id', user.id);
+    localStorage.setItem('user_name', user.name); 
+    localStorage.setItem('user_email', user.email);
+   
     dispatch(change({
         email: '',
         password: ''
     }))
 
     dispatch(success(true))
+
+  
 }
 
 export const login = credentials => dispatch => {
@@ -35,18 +40,16 @@ export const login = credentials => dispatch => {
       msg: 'Autenticando Usuario'
     }))
 
-    return Http.post('oauth/token', {
-      grant_type: 'password',
-      client_id: 2,
-      client_secret: 'qtUaF0Ogzqklotb5nRgvyiu9CSa9NYzm5z8Q7z0O',
-      username: credentials.email,
+    return Http.post('login', {
+      email: credentials.email,
       password: credentials.password
     })
     .then(res => {
       dispatch(changeLoading({ open: false }))
       if (typeof res !== 'undefined') {
-          if(res.data.access_token) {
-             dispatch( setUserToken(res.data.access_token) );
+          if(res.data.user) {
+             dispatch( setUserToken({id: res.data.user.id,
+              name: res.data.user.name,}));
           }
       }
      

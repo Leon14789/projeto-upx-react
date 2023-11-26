@@ -6,6 +6,8 @@ const Register = lazy(() => import('./view/register'))
 const Auth = lazy(() => import('./view/auth'))
 const Main = lazy(() => import('./view/main'))
 const Question = lazy(() => import('./view/questions'))
+const QuestionEdit = lazy(() => import('./view/main/response'))
+const MyQuestions = lazy(() => import('./view/questions/myQuestions'))
 
 const reactRoutes = () => {
     return(
@@ -22,6 +24,11 @@ const reactRoutes = () => {
                         <Route path="/main" Component={Main}></Route>
 
                         <Route path="/question" Component={Question}></Route>
+                        
+                        <Route path="/question/:id" Component={QuestionEdit}></Route>
+
+                        <Route path="/myQuestion/" Component={MyQuestions}></Route>
+
                 </Routes>
             </Suspense>
         </Router>

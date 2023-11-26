@@ -1,8 +1,8 @@
 import React from 'react'
-import { index } from '../../store/actions/app.action'
+import { filterMyQuestions } from '../../store/actions/app.action'
 import { Link } from 'react-router-dom'
 import { FaPlus, FaEllipsisV, FaLink, FaPencilAlt } from 'react-icons/fa'
-import { SCROLL, rootUrl } from '../../config/App'
+import { SCROLL  } from '../../config/App'
 import { Button, CircularProgress, IconButton, Menu, MenuItem, Slide, Fade} from '@mui/material'
 
 
@@ -13,7 +13,7 @@ export default function Main() {
    
   const dispatch = useDispatch()
    
-  const questions = useSelector(state => state.appReducer.questions)
+  const myQuestions = useSelector(state => state.appReducer.questions)
    
   const [ isLoading, setLoading ] = React.useState(true)
 
@@ -38,35 +38,33 @@ const _handleScroll = (event) => {
       if(!isLoadMore && _handleLoadMore());
   }
 }
+
 const _handleLoadMore = () => {
-    if (questions.current_page < questions.last_page) {
-      setQuery((prevQuery) => ({
-        ...prevQuery,
-        page: prevQuery.page + 1,
-      }));
-      _index(true);
-    }
-  };
-  
+  if(myQuestions.current_page < myQuestions.last_page) {
+      setQuery({
+          ...query,
+          page: query.page + 1
+      }, () => {
+          _index(true);
+      })
+  }
+}
 
 const _handleMenu = (event) => {
     setState({ menuEl: event.currentTarget })
 }
 
+
 const _index = (loadMore) => {
-    dispatch(index(query, loadMore)).then(res => {
-      console.log("Returned data:", res);
+    const userId = localStorage.getItem('user_id');
+  
+    dispatch(filterMyQuestions(userId, query, loadMore)).then(res => {
       if (res) {
         setLoading(false);
-        if (loadMore) {
-          setLoadMore(false);
-        }
+        if (isLoadMore && setLoadMore(false));
       }
     });
   };
-  
-  
-  
 
 return (
   <>
@@ -84,15 +82,15 @@ return (
                   </div>
 
                   <div className="d-flex card">
-                  {(questions.data.length >= 0) && 
+                  {(myQuestions.data.length >= 0) && 
                                 <div className="card-header">
-                                    <h1 className="m-0">Total de Perguntas {questions.total}</h1>
+                                    <h1 className="m-0">Minhas Perguntas:  {myQuestions.total}</h1>
                                 </div>
                             }
                            
 
                            <div className="p-2 p-md-3">
-                                {questions.data.map((item, index) => (
+                                {myQuestions.data.map((item, index) => (
                                     <React.Fragment key={index}>
                                     <div className="d-md-flex justify-content-between">
                                         <div className="d-flex justify-content-center align-items-center">
@@ -126,6 +124,9 @@ return (
                                                     onClick={() => setState({ menuEl: null})}
                                                 >
                                                     <MenuItem>
+                                                        <FaLink size='1.2em' className="ml-4" /> Vizualizar
+                                                    </MenuItem>
+                                                    <MenuItem>
                                                             <Link to={'/question/'+item.id}> 
                                                                 <FaPencilAlt size='1.2em' className="mr-4" /> Responder
                                                             </Link>
@@ -135,7 +136,7 @@ return (
                                             } 
                                         </div>
                                     </div>
-                                    {index < questions.data.length - 1 && <hr />}
+                                    {index < myQuestions.data.length - 1 && <hr />}
                                     </React.Fragment>
                                 ))}
                             </div>
