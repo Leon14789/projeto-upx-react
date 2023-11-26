@@ -55,7 +55,6 @@ const _handleMenu = (event) => {
 
 const _index = (loadMore) => {
     dispatch(index(query, loadMore)).then(res => {
-      console.log("Returned data:", res);
       if (res) {
         setLoading(false);
         if (loadMore) {

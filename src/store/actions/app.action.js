@@ -1,6 +1,4 @@
 import { HttpAuth } from '../../config/Http'
-import { changeLoading } from './loading.action'
-import { changeNotify } from './notify.action'
 
 export const actionTypes = {
     INDEX: 'QUESTION_INDEX',
@@ -27,11 +25,11 @@ export const error = (payload) => ({
 
 // INDEX
 
-export const indexResponse = (payload, isLoadMore) => ({
+export const indexResponse = (payload) => ({
     type: actionTypes.INDEX,
     payload,
-    isLoadMore
-})
+  });
+  
 
 export const index = (query, isLoadMore) => dispatch => {
     return HttpAuth.get('/questions?' + new URLSearchParams(query))

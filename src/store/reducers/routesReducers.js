@@ -7,6 +7,9 @@ import authReducer from './auth.reducer'
 import registerReducer from './register.reducer'
 import questionReducer from './question.reducer'
 import appReducer from './app.reducer';
+import responseReducer from './response.reducer';
+
+
 const rootReducer = combineReducers({
     loadingReducer,
     notifyReducer,
@@ -15,6 +18,7 @@ const rootReducer = combineReducers({
     registerReducer,
     questionReducer,
     appReducer,
+    responseReducer
    
     
 

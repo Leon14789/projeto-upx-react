@@ -2,24 +2,24 @@ import React from 'react'
 import {  TextField, Button } from '@mui/material'
 import Typography from '@mui/material/Typography';
 import { useDispatch, useSelector  } from 'react-redux'
-import { change, question } from '../../store/actions/question.action';
+import { change, response } from '../../store/actions/response.actions'
 import {  useNavigate } from 'react-router-dom';
 import Header from '../header/'
-import thunk from 'redux-thunk';
 
 
-export default function Question() {
+export default function Response() {
 
  
 
     const dispatch = useDispatch();
     const navigate = useNavigate(); 
   
-    const { userQuestion, success, error } = useSelector(state => state.questionReducer)
+    const { userResponse, success, error } = useSelector(state => state.responseReducer)
 
 
 
-    
+    const storedQuestionId = localStorage.getItem('currentQuestionId');
+
   return (
     
     <div className=' min-vh-100'>
@@ -29,7 +29,7 @@ export default function Question() {
           <div className='col-md-5'>
              <div className='form-group text-center'>
                 <Typography  className='mt-3' variant='h6' component="h1">
-                    Faça sua pergunta
+                    RESPOSTA
                 </Typography>          
              </div>
 
@@ -40,8 +40,8 @@ export default function Question() {
              error={(error.title) && true}
                 type='text'
                 margin='normal'
-                label='Titulo da Questão'
-                value={userQuestion.title}
+                label='Titulo da Resposta'
+                value={userResponse.title}
                 onChange={ text => {
                 dispatch( change( { title: text.target.value }));
                     if(error.title && delete error.title);
@@ -60,7 +60,7 @@ export default function Question() {
                 margin='normal'
                 label='Descrição'
                 type='description'
-                value={userQuestion.description}
+                value={userResponse.description}
                 onChange={ text => {
                 dispatch( change( { description: text.target.value }));
                     if(error.description && delete error.description);
@@ -79,10 +79,10 @@ export default function Question() {
                  fullWidth
                  size='large'
                  className='mt-4'
-                 onClick={ () => dispatch(question(userQuestion)) }
+                 onClick={ () => dispatch(response(userResponse)) }
             >
 
-                Criar Pergunta
+                Responder
 
             </Button>
 

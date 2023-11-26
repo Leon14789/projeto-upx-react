@@ -124,7 +124,7 @@ return (
                                                     onClick={() => setState({ menuEl: null})}
                                                 >
                                                     <MenuItem>
-                                                            <Link to={'/question/'+item.id}> 
+                                                            <Link to={'/myQuestion/'+item.id}> 
                                                                 <FaLink size='1.2em' className="mr-4" /> Vizualizar
                                                             </Link>
                                                     </MenuItem>
