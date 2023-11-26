@@ -10,34 +10,30 @@ const initialState = {
     error: {}
 }
 
-
 export default (state = initialState, { type, payload }) => {
-    
-  switch (type) {
+    switch (type) {
+        case actionTypes.CHANGE:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    ...payload
+                }
+            }
 
-  case actionTypes.CHANGE:
-    return { ...state,
-        
-        user: {
-            ...state.user,
-            ...payload 
-        }
-        
-        }
+        case actionTypes.SUCCESS:
+            return {
+                ...state,
+                success: payload
+            };
 
-    case actionTypes.SUCCESS: 
-        return {
-            ...state,
-            success: payload
-        }
+        case actionTypes.ERROR:
+            return {
+                ...state,
+                error: payload
+            }
 
-        case actionTypes.ERROR: 
-        return {
-            ...state,
-            error: payload
-        }
-
-  default:
-    return state
-  }
+        default:
+            return state
+    }
 }

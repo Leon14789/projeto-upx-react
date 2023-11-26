@@ -124,14 +124,10 @@ return (
                                                     onClick={() => setState({ menuEl: null})}
                                                 >
                                                     <MenuItem>
-                                                        <FaLink size='1.2em' className="ml-4" /> Vizualizar
-                                                    </MenuItem>
-                                                    <MenuItem>
                                                             <Link to={'/question/'+item.id}> 
-                                                                <FaPencilAlt size='1.2em' className="mr-4" /> Responder
+                                                                <FaLink size='1.2em' className="mr-4" /> Vizualizar
                                                             </Link>
                                                     </MenuItem>
-
                                                 </Menu>
                                             } 
                                         </div>

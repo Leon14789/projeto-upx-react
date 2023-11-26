@@ -12,6 +12,8 @@ export default function Register() {
     const navigate = useNavigate(); 
   
     const { user, success, error } = useSelector(state => state.registerReducer)
+
+
    
   return (
     
@@ -20,7 +22,6 @@ export default function Register() {
         <div className='row justify-content-center'>
           <div className='col-md-3'>
              <div className='form-group text-center'>
-             <img src="/logo.png" alt='Lucas colocar Logo' height="100"/>
                 <Typography  className='mt-3' variant='h6' component="h1">
                     Crie sua conta 
                 </Typography>          
@@ -78,13 +79,25 @@ export default function Register() {
                 <strong className='text-danger'> {error.password[0]} </strong>
             }
 
+<TextField 
+    error={(error.password_confirmation) && true}
+    margin='normal'
+    label='Confirmar Senha'
+    type='password'
+    value={user.password_confirmation}
+    onChange={ text => {
+        dispatch( change( { password_confirmation: text.target.value }));
+        if(error.password_confirmation && delete error.password_confirmation);
+    }}
+/>
+
             <Button
                  variant='contained'
                  color='primary'
                  fullWidth
                  size='large'
                  className='mt-4'
-                 onClick={ () => dispatch(register(user)) }
+                 onClick={() => dispatch(register(user))}
             >
 
                 Criar Cadastro
@@ -92,14 +105,13 @@ export default function Register() {
             </Button>
 
 
+            {success && navigate('/main')}
 
-            {(success) &&
-          navigate('/main')
-          }
+
 
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

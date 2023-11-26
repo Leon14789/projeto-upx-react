@@ -21,7 +21,7 @@ const initialState = {
     // eslint-disable-next-line import/no-anonymous-default-export
     export default (state = initialState, { type, payload, isLoadMore }) => {
         switch (type) {
-         // Atualize o reducer para lidar com a ação INDEX
+       
          case actionTypes.INDEX:
           let updatedData;
         
@@ -61,6 +61,12 @@ const initialState = {
               ...state,
               error: payload,
             };
+
+            case actionTypes.SHOW:
+              return {
+                  ...state,
+                  questionId: payload,
+              };
       
           default:
             return state;

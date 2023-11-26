@@ -48,7 +48,8 @@ export const login = credentials => dispatch => {
       dispatch(changeLoading({ open: false }))
       if (typeof res !== 'undefined') {
           if(res.data.user) {
-             dispatch( setUserToken({id: res.data.user.id,
+             dispatch( setUserToken(
+              {id: res.data.user.id,
               name: res.data.user.name,}));
           }
       }

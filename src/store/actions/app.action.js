@@ -5,6 +5,7 @@ import { changeNotify } from './notify.action'
 export const actionTypes = {
     INDEX: 'QUESTION_INDEX',
     CHANGE: 'QUESTION_CHANGE',
+    SHOW: 'QUESTION_SHOW'
    
  
 }
@@ -46,10 +47,17 @@ export const store = () => dispatch => {
 
 // SHOW 
 
+export const showResponse = (payload) => ({
+    type: actionTypes.SHOW,
+    payload,
+});
+
+
 export const show = (id) => dispatch => {
-    return HttpAuth.get('/questions/'+ id)
-                .then(res => typeof res !== 'undefined' && dispatch(indexResponse(res.data)))
+    return HttpAuth.get('/questions/' + id)
+        .then(res => typeof res !== 'undefined' && dispatch(showResponse(res.data)));
 }
+
 
 
 export const filterMyQuestions = (userId, query, isLoadMore) => dispatch => {

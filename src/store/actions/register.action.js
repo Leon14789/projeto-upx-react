@@ -9,30 +9,33 @@ export const actionTypes = {
 }
 
 export const change = (payload) => ({
-  type: actionTypes.CHANGE,
-  payload
+    type: actionTypes.CHANGE,
+    payload
 })
 
 export const success = (payload) => ({
-  type: actionTypes.SUCCESS,
-  payload
+    type: actionTypes.SUCCESS,
+    payload
 })
-
 
 export const errors = (payload) => ({
-  type: actionTypes.ERROR,
-  payload
+    type: actionTypes.ERROR,
+    payload
 })
 
-export const setUserToken = token => dispatch => {
-    localStorage.setItem('access_token', token);
+export const setUserToken = (user) => dispatch => {
+
+    localStorage.setItem('user_id', user.id);
+    localStorage.setItem('user_name', user.name);
+    localStorage.setItem('user_email', user.email);
+
     dispatch(change({
         name: '',
         email: '',
         password: ''
-    }))
+    }));
 
-    dispatch(success(true))
+    dispatch(success(true));
 }
 
 export const register = data => dispatch => {
@@ -41,24 +44,26 @@ export const register = data => dispatch => {
         msg: 'Cadastrando Usuario...'
     }))
     return Http.post('/register', data)
-        .then(res => {
-            dispatch(changeLoading({open: false}))
-            if (typeof res !== 'undefined') {
-                if (res.data.access_token) {
-                    dispatch(changeNotify({
-                        open: true,
-                        class: 'success',
-                        msg: 'Usuario cadastrado com Sucesso'
-                    }))
-                    dispatch(setUserToken(res.data.access_token))
-                }
+
+    .then(res => {
+        dispatch(changeLoading({ open: false }));
+    
+        console.log(res);
+        if (res.status === 201) {
+            if (res.data && res.data.user) {
+                dispatch(changeNotify({
+                    open: true,
+                    class: 'success',
+                    msg: 'Usuario cadastrado com Sucesso'
+                }))
+                dispatch(setUserToken(res.data.user))
+            }
+        }
+    })
+        .catch(error => {
+            dispatch(changeLoading({ open: false }))
+            if (error.response) {
+                dispatch(errors(error.response.data.errors))
             }
         })
-        .catch(error => {
-            dispatch(changeLoading({open: false}))
-                if (error.response) {
-                    dispatch(errors(error.response.data.errors))
-                }
-        })
 }
-
